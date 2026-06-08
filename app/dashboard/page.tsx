@@ -74,73 +74,11 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Profile Link */}
-            <Link href="/profile" className="block">
-              <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow cursor-pointer">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  My Profile
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Update your profile and password
-                </p>
-              </div>
-            </Link>
-
-            {/* Admin: User Management */}
-            <PermissionGate permission="manage_users">
-              <Link href="/admin/users" className="block">
-                <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow cursor-pointer border-l-4 border-blue-600">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    User Management
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Manage users and their roles
-                  </p>
-                </div>
-              </Link>
-            </PermissionGate>
-
-            {/* Admin: Role Management */}
-            <PermissionGate permission="manage_roles">
-              <Link href="/admin/roles" className="block">
-                <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow cursor-pointer border-l-4 border-green-600">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    Role Management
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Create and manage roles with permissions
-                  </p>
-                </div>
-              </Link>
-            </PermissionGate>
-
-            {/* Admin: Audit Logs */}
-            <PermissionGate permission="view_audit_logs">
-              <Link href="/admin/audit-logs" className="block">
-                <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow cursor-pointer border-l-4 border-purple-600">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    Audit Logs
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    View admin activity and changes
-                  </p>
-                </div>
-              </Link>
-            </PermissionGate>
-
-            {/* Settings Link */}
-            <Link href="/settings" className="block">
-              <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow cursor-pointer">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  Settings
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Application settings and preferences
-                </p>
-              </div>
-            </Link>
+          {/* Navigation moved to sidebar */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <p className="text-gray-600">
+              Quick actions have been moved to the left sidebar.
+            </p>
           </div>
         </div>
       </div>
