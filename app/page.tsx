@@ -60,10 +60,10 @@ export default function Home() {
       <main className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Velkommer til 2INF Festivalen!
+            Velkommen til 2INF Festivalen!
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            A complete user management and permission system
+            Møt en rekke diverse IT bedrifter og andre IT interesserte
           </p>
           <div className="flex justify-center space-x-4">
             <Link
