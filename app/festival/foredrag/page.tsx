@@ -79,8 +79,7 @@ export default async function ForedragPage() {
                       className="text-xs font-semibold px-3 py-1 rounded-full"
                       style={{
                         background: "var(--primary)",
-                        opacity: 0.1,
-                        color: "var(--primary)",
+                        color: "white",
                       }}
                     >
                       🏛️ Rom {f.rom}
@@ -89,8 +88,7 @@ export default async function ForedragPage() {
                       className="text-xs font-semibold px-3 py-1 rounded-full"
                       style={{
                         background: "var(--accent)",
-                        opacity: 0.1,
-                        color: "var(--accent)",
+                        color: "white",
                       }}
                     >
                       👥 Maks {f.maksPlasser}

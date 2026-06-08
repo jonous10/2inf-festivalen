@@ -61,17 +61,14 @@ export default async function RomPage() {
               {/* Bygning */}
               <div
                 className="mb-4 p-3 rounded-lg"
-                style={{ background: getBygningColor(r.bygning), opacity: 0.1 }}
+                style={{ background: getBygningColor(r.bygning) }}
               >
-                <p
-                  className="text-xs font-semibold"
-                  style={{ color: "var(--muted)" }}
-                >
+                <p className="text-xs font-semibold" style={{ color: "white" }}>
                   🏢 BYGNING
                 </p>
                 <p
                   className="text-sm font-bold mt-1"
-                  style={{ color: getBygningColor(r.bygning) }}
+                  style={{ color: "white" }}
                 >
                   {r.bygning}
                 </p>
@@ -80,17 +77,14 @@ export default async function RomPage() {
               {/* Kapasitet */}
               <div
                 className="mb-4 p-3 rounded-lg"
-                style={{ background: "var(--primary)", opacity: 0.1 }}
+                style={{ background: "var(--primary)" }}
               >
-                <p
-                  className="text-xs font-semibold"
-                  style={{ color: "var(--muted)" }}
-                >
+                <p className="text-xs font-semibold" style={{ color: "white" }}>
                   👥 KAPASITET
                 </p>
                 <p
                   className="text-2xl font-bold mt-1"
-                  style={{ color: "var(--primary)" }}
+                  style={{ color: "white" }}
                 >
                   {r.kapasitet}
                 </p>
@@ -112,8 +106,7 @@ export default async function RomPage() {
                         className="text-xs px-2 py-1 rounded-full"
                         style={{
                           background: "var(--accent)",
-                          opacity: 0.1,
-                          color: "var(--accent)",
+                          color: "white",
                           fontWeight: "500",
                         }}
                       >

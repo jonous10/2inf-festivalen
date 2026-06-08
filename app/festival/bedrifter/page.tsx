@@ -72,15 +72,12 @@ export default async function BedrifterPage() {
               {/* Stand nummer highlight */}
               <div
                 className="mb-4 p-3 rounded-lg"
-                style={{ background: "var(--primary)", opacity: 0.1 }}
+                style={{ background: "var(--primary)" }}
               >
-                <p className="text-sm" style={{ color: "var(--muted)" }}>
+                <p className="text-sm" style={{ color: "white" }}>
                   Stand
                 </p>
-                <p
-                  className="text-2xl font-bold"
-                  style={{ color: "var(--primary)" }}
-                >
+                <p className="text-2xl font-bold" style={{ color: "white" }}>
                   {b.standnummer}
                 </p>
               </div>

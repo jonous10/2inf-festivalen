@@ -91,18 +91,14 @@ export default async function EleverPage() {
                 className="mb-4 p-3 rounded-lg"
                 style={{
                   background: "var(--primary)",
-                  opacity: 0.1,
                 }}
               >
-                <p
-                  className="text-xs font-semibold"
-                  style={{ color: "var(--muted)" }}
-                >
+                <p className="text-xs font-semibold" style={{ color: "white" }}>
                   📚 KLASSE & GRUPPE
                 </p>
                 <p
                   className="text-sm font-bold mt-1"
-                  style={{ color: "var(--primary)" }}
+                  style={{ color: "white" }}
                 >
                   {e.klasse} • Gruppe {e.gruppe}
                 </p>
