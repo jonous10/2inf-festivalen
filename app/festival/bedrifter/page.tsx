@@ -133,11 +133,11 @@ export default async function BedrifterPage() {
               {b.harForedrag && (
                 <div
                   className="mt-4 p-3 rounded-lg"
-                  style={{ background: "#10b981", opacity: 0.1 }}
+                  style={{ background: "#10b981" }}
                 >
                   <span
                     className="text-sm font-semibold"
-                    style={{ color: "#10b981" }}
+                    style={{ color: "white" }}
                   >
                     🎤 Holder foredrag
                   </span>

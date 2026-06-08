@@ -30,10 +30,7 @@ export default async function ForedragPage() {
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12">
-          <h1
-            className="text-4xl font-bold mb-3"
-            style={{ color: "var(--foreground)" }}
-          >
+          <h1 className="text-4xl font-bold mb-3" style={{ color: "#1f2937" }}>
             🎤 Foredrag
           </h1>
           <p style={{ color: "var(--muted)" }}>
@@ -106,18 +103,17 @@ export default async function ForedragPage() {
                   className="md:w-40 p-4 rounded-lg text-center"
                   style={{
                     background: "var(--primary)",
-                    opacity: 0.1,
                   }}
                 >
                   <p
                     className="text-xs font-semibold"
-                    style={{ color: "var(--muted)" }}
+                    style={{ color: "white" }}
                   >
                     HOLDER
                   </p>
                   <p
                     className="text-sm font-bold mt-2"
-                    style={{ color: "var(--primary)" }}
+                    style={{ color: "white" }}
                   >
                     {f.bedrift || "Ukjent"}
                   </p>
