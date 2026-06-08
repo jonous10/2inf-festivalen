@@ -8,39 +8,147 @@ export default async function BedrifterPage() {
   // @ts-ignore
   const bedrifter = Array.isArray(rows) ? rows : [];
 
-  return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold mb-4">Bedrifter</h1>
+  const getBransjeColor = (bransje: string) => {
+    const colors: Record<string, string> = {
+      "Rådgiving og teknologi": "#0066ff",
+      "IT-infrastruktur": "#06b6d4",
+      "Design og utvikling": "#7c3aed",
+      Systemutvikling: "#059669",
+      "Energi og digitalisering": "#dc2626",
+      "Mobilitet og data": "#f59e0b",
+      "Konsulent og teknologi": "#8b5cf6",
+      "Sky og lisensiering": "#0891b2",
+    };
+    return colors[bransje] || "#6366f1";
+  };
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {bedrifter.map((b: any) => (
-          <div key={b.id} className="bg-white rounded shadow p-4">
-            <h3 className="font-semibold text-lg">{b.navn}</h3>
-            <p className="text-sm text-gray-600">{b.bransje}</p>
-            <p className="mt-2 text-sm">
-              Stand: <span className="font-medium">{b.standnummer}</span>
-            </p>
-            <p className="text-sm mt-2">
-              Kontakt: {b.kontaktperson} — {b.epost}
-            </p>
-            {b.nettside && (
-              <p className="text-sm mt-2">
-                Nettside:{" "}
-                <Link
-                  href={b.nettside}
-                  className="text-blue-600 hover:underline"
+  return (
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--background)" }}
+    >
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-12">
+          <h1
+            className="text-4xl font-bold mb-3"
+            style={{ color: "var(--foreground)" }}
+          >
+            🏢 Bedrifter
+          </h1>
+          <p style={{ color: "var(--muted)" }}>
+            {bedrifter.length} bedrifter deltar på festivalen
+          </p>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {bedrifter.map((b: any) => (
+            <div
+              key={b.id}
+              className="group rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+              style={{
+                background: "var(--card-bg)",
+                border: "1px solid",
+                borderColor: "var(--border)",
+              }}
+            >
+              {/* Topp info */}
+              <div className="mb-4">
+                <h3
+                  className="text-xl font-bold mb-2"
+                  style={{ color: "var(--foreground)" }}
                 >
-                  {b.nettside}
-                </Link>
-              </p>
-            )}
-            {b.harForedrag ? (
-              <div className="mt-3 inline-block text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
-                Holder foredrag
+                  {b.navn}
+                </h3>
+                <div
+                  className="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white"
+                  style={{ background: getBransjeColor(b.bransje) }}
+                >
+                  {b.bransje}
+                </div>
               </div>
-            ) : null}
-          </div>
-        ))}
+
+              {/* Stand nummer highlight */}
+              <div
+                className="mb-4 p-3 rounded-lg"
+                style={{ background: "var(--primary)", opacity: 0.1 }}
+              >
+                <p className="text-sm" style={{ color: "var(--muted)" }}>
+                  Stand
+                </p>
+                <p
+                  className="text-2xl font-bold"
+                  style={{ color: "var(--primary)" }}
+                >
+                  {b.standnummer}
+                </p>
+              </div>
+
+              {/* Detaljer */}
+              <div className="space-y-3 mb-4">
+                {/* Kontaktperson */}
+                <div>
+                  <p
+                    className="text-xs font-semibold"
+                    style={{ color: "var(--muted)" }}
+                  >
+                    👤 KONTAKTPERSON
+                  </p>
+                  <p
+                    className="text-sm mt-1"
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    {b.kontaktperson}
+                  </p>
+                  <a
+                    href={`mailto:${b.epost}`}
+                    className="text-sm transition-colors duration-200 hover:underline"
+                    style={{ color: "var(--primary)" }}
+                  >
+                    ✉️ {b.epost}
+                  </a>
+                </div>
+
+                {/* Nettside */}
+                {b.nettside && (
+                  <div>
+                    <p
+                      className="text-xs font-semibold"
+                      style={{ color: "var(--muted)" }}
+                    >
+                      🌐 NETTSIDE
+                    </p>
+                    <Link
+                      href={b.nettside}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm transition-colors duration-200 hover:underline mt-1 inline-block"
+                      style={{ color: "var(--accent)" }}
+                    >
+                      {b.nettside}
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Foredrag badge */}
+              {b.harForedrag && (
+                <div
+                  className="mt-4 p-3 rounded-lg"
+                  style={{ background: "#10b981", opacity: 0.1 }}
+                >
+                  <span
+                    className="text-sm font-semibold"
+                    style={{ color: "#10b981" }}
+                  >
+                    🎤 Holder foredrag
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
