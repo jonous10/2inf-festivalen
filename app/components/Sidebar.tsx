@@ -18,12 +18,17 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`bg-white border-r border-gray-200 h-screen sticky top-0 transition-all duration-200 flex flex-col ${collapsed ? "w-20" : "w-64"}`}
+      className={`h-screen sticky top-0 transition-all duration-300 flex flex-col border-r ${collapsed ? "w-20" : "w-64"}`}
+      style={{
+        background: "var(--card-bg)",
+        borderColor: "var(--border)",
+      }}
     >
-      <div className="p-3 flex flex-col h-full">
-        <div className="flex items-center justify-between mb-4">
+      <div className="p-4 flex flex-col h-full">
+        <div className="flex items-center justify-between mb-6">
           <h2
-            className={`text-lg font-semibold text-gray-900 transition-opacity duration-200 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+            className={`text-lg font-bold transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+            style={{ color: "var(--foreground)" }}
           >
             Menu
           </h2>
@@ -31,7 +36,8 @@ export default function Sidebar() {
           <button
             onClick={() => setCollapsed((s) => !s)}
             aria-label="Toggle sidebar"
-            className="p-1 rounded hover:bg-gray-100"
+            className="p-2 rounded-lg transition-all duration-200 hover:shadow-md"
+            style={{ background: "var(--primary)", color: "white" }}
           >
             {collapsed ? (
               <svg
@@ -55,16 +61,18 @@ export default function Sidebar() {
           </button>
         </div>
 
-        <nav className="flex-1">
-          <ul className="space-y-2">
+        <nav className="flex-1 overflow-y-auto">
+          <ul className="space-y-1">
             <li>
               <Link
                 href="/dashboard"
                 title={collapsed ? "Dashboard" : undefined}
-                className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                style={{ color: "var(--foreground)" }}
               >
                 <svg
-                  className="w-5 h-5 text-gray-700"
+                  className="w-5 h-5 flex-shrink-0"
+                  style={{ color: "var(--primary)" }}
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +83,8 @@ export default function Sidebar() {
                   />
                 </svg>
                 <span
-                  className={`text-sm text-gray-900 transition-opacity duration-200 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                  className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                  style={{ color: "var(--foreground)" }}
                 >
                   Dashboard
                 </span>
@@ -86,10 +95,12 @@ export default function Sidebar() {
               <Link
                 href="/profile"
                 title={collapsed ? "My Profile" : undefined}
-                className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                style={{ color: "var(--foreground)" }}
               >
                 <svg
-                  className="w-5 h-5 text-gray-700"
+                  className="w-5 h-5 flex-shrink-0"
+                  style={{ color: "var(--accent)" }}
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +109,8 @@ export default function Sidebar() {
                   <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="currentColor" />
                 </svg>
                 <span
-                  className={`text-sm text-gray-900 transition-opacity duration-200 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                  className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                  style={{ color: "var(--foreground)" }}
                 >
                   My Profile
                 </span>
@@ -110,10 +122,12 @@ export default function Sidebar() {
                 <Link
                   href="/admin/users"
                   title={collapsed ? "User Management" : undefined}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                  className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                  style={{ color: "var(--foreground)" }}
                 >
                   <svg
-                    className="w-5 h-5 text-gray-700"
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ color: "var(--primary)" }}
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +141,8 @@ export default function Sidebar() {
                     />
                   </svg>
                   <span
-                    className={`text-sm text-gray-900 transition-opacity duration-200 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    style={{ color: "var(--foreground)" }}
                   >
                     User Management
                   </span>
@@ -140,10 +155,12 @@ export default function Sidebar() {
                 <Link
                   href="/admin/roles"
                   title={collapsed ? "Role Management" : undefined}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                  className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                  style={{ color: "var(--foreground)" }}
                 >
                   <svg
-                    className="w-5 h-5 text-gray-700"
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ color: "var(--primary)" }}
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +171,8 @@ export default function Sidebar() {
                     />
                   </svg>
                   <span
-                    className={`text-sm text-gray-900 transition-opacity duration-200 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    style={{ color: "var(--foreground)" }}
                   >
                     Role Management
                   </span>
@@ -167,10 +185,12 @@ export default function Sidebar() {
                 <Link
                   href="/admin/audit-logs"
                   title={collapsed ? "Audit Logs" : undefined}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                  className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                  style={{ color: "var(--foreground)" }}
                 >
                   <svg
-                    className="w-5 h-5 text-gray-700"
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ color: "var(--primary)" }}
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +204,8 @@ export default function Sidebar() {
                     />
                   </svg>
                   <span
-                    className={`text-sm text-gray-900 transition-opacity duration-200 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    style={{ color: "var(--foreground)" }}
                   >
                     Audit Logs
                   </span>
@@ -196,10 +217,12 @@ export default function Sidebar() {
               <Link
                 href="/settings"
                 title={collapsed ? "Settings" : undefined}
-                className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                style={{ color: "var(--foreground)" }}
               >
                 <svg
-                  className="w-5 h-5 text-gray-700"
+                  className="w-5 h-5 flex-shrink-0"
+                  style={{ color: "var(--accent)" }}
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -215,7 +238,8 @@ export default function Sidebar() {
                   />
                 </svg>
                 <span
-                  className={`text-sm text-gray-900 transition-opacity duration-200 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                  className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                  style={{ color: "var(--foreground)" }}
                 >
                   Settings
                 </span>
@@ -224,16 +248,31 @@ export default function Sidebar() {
           </ul>
         </nav>
 
-        <div className="mt-4">
-          <div className="border-t pt-4 flex items-center gap-3">
-            <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-sm text-gray-700">
+        <div className="mt-auto">
+          <div
+            className="border-t pt-4 flex items-center gap-3"
+            style={{ borderColor: "var(--border)" }}
+          >
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-semibold text-white flex-shrink-0"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--primary), var(--accent))",
+              }}
+            >
               {user?.username?.charAt(0)?.toUpperCase()}
             </div>
-            <div className={`${collapsed ? "hidden" : "flex-1"}`}>
-              <div className="text-sm text-gray-600">{user?.username}</div>
+            <div className={`flex-1 ${collapsed ? "hidden" : ""}`}>
+              <div
+                className="text-sm font-medium"
+                style={{ color: "var(--foreground)" }}
+              >
+                {user?.username}
+              </div>
               <button
                 onClick={handleLogout}
-                className="mt-2 text-sm text-red-600 hover:underline"
+                className="mt-2 text-sm transition-all duration-200 hover:scale-105"
+                style={{ color: "var(--primary)" }}
               >
                 Logout
               </button>
@@ -241,11 +280,12 @@ export default function Sidebar() {
             {collapsed && (
               <button
                 onClick={handleLogout}
-                className="ml-auto p-1 rounded hover:bg-gray-100"
+                className="ml-auto p-2 rounded-lg transition-all duration-200 hover:shadow-md"
+                style={{ background: "var(--primary)", color: "white" }}
                 aria-label="Logout"
               >
                 <svg
-                  className="w-5 h-5 text-red-600"
+                  className="w-5 h-5"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
