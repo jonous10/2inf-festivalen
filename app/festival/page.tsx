@@ -7,8 +7,7 @@ export default async function FestivalPage() {
     "SELECT * FROM festival ORDER BY id DESC LIMIT 1",
   );
   await conn.end();
-  // @ts-ignore
-  const festival = Array.isArray(rows) && rows.length ? rows[0] : null;
+  const festival = Array.isArray(rows) && rows.length ? (rows[0] as any) : null;
 
   return (
     <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
