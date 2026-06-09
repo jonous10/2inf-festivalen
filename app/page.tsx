@@ -39,11 +39,8 @@ export default async function Home() {
     >
       {/* Navigasjonsbar */}
       <nav
-        className="sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300"
-        style={{
-          borderColor: "var(--border)",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
-        }}
+        className="sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 bg-white/80 dark:bg-slate-950/80"
+        style={{ borderColor: "var(--border)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
