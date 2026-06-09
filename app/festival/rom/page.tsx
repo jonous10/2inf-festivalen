@@ -24,24 +24,26 @@ export default async function RomPage() {
       className="min-h-screen"
       style={{ backgroundColor: "var(--background)" }}
     >
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-12">
           <h1
-            className="text-4xl font-bold mb-3"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3"
             style={{ color: "var(--foreground)" }}
           >
             🏛️ Romoversikt
           </h1>
-          <p style={{ color: "var(--muted)" }}>{rom.length} rom tilgjengelig</p>
+          <p style={{ color: "var(--muted)", fontSize: "0.875rem sm:1rem" }}>
+            {rom.length} rom tilgjengelig
+          </p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {rom.map((r: any) => (
             <div
               key={r.id}
-              className="group rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+              className="group rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",
@@ -51,7 +53,7 @@ export default async function RomPage() {
               {/* Romnummer */}
               <div className="mb-4">
                 <h3
-                  className="text-3xl font-bold"
+                  className="text-2xl sm:text-3xl font-bold"
                   style={{ color: "var(--foreground)" }}
                 >
                   {r.romnummer}
@@ -67,7 +69,7 @@ export default async function RomPage() {
                   🏢 BYGNING
                 </p>
                 <p
-                  className="text-sm font-bold mt-1"
+                  className="text-xs sm:text-sm font-bold mt-1"
                   style={{ color: "white" }}
                 >
                   {r.bygning}
@@ -83,7 +85,7 @@ export default async function RomPage() {
                   👥 KAPASITET
                 </p>
                 <p
-                  className="text-2xl font-bold mt-1"
+                  className="text-xl sm:text-2xl font-bold mt-1"
                   style={{ color: "white" }}
                 >
                   {r.kapasitet}

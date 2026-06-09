@@ -32,9 +32,9 @@ export default function RootLayout({
     >
       <body className="min-h-full">
         <AuthProvider>
-          <div className="min-h-screen flex bg-gray-50">
+          <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
             <Sidebar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 w-full">{children}</main>
           </div>
         </AuthProvider>
         <CookieConsent />

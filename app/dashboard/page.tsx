@@ -19,53 +19,75 @@ export default function DashboardPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-50">
-        {/* Navigation */}
-        <nav className="bg-white shadow-sm border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16 items-center">
-              <div className="flex items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              </div>
-              <div className="flex items-center space-x-4">
-                <span className="text-gray-600">{user?.username}</span>
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
-          </div>
-        </nav>
-
+      <div
+        className="min-h-screen"
+        style={{ backgroundColor: "var(--background)" }}
+      >
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <h1
+              className="text-2xl sm:text-3xl font-bold"
+              style={{ color: "var(--foreground)" }}
+            >
+              Dashboard
+            </h1>
+          </div>
+
           {/* User Info Card */}
-          <div className="bg-white rounded-lg shadow p-6 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+          <div
+            className="rounded-lg shadow p-4 sm:p-6 mb-8"
+            style={{ background: "var(--card-bg)" }}
+          >
+            <h2
+              className="text-lg sm:text-xl font-bold mb-4"
+              style={{ color: "var(--foreground)" }}
+            >
               Welcome, {user?.username}!
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <p className="text-gray-600 text-sm">Email</p>
-                <p className="text-gray-900 font-medium">{user?.email}</p>
+                <p
+                  className="text-xs sm:text-sm"
+                  style={{ color: "var(--muted)" }}
+                >
+                  Email
+                </p>
+                <p
+                  className="font-medium text-sm sm:text-base"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  {user?.email}
+                </p>
               </div>
               <div>
-                <p className="text-gray-600 text-sm">Role</p>
-                <p className="text-gray-900 font-medium capitalize">
+                <p
+                  className="text-xs sm:text-sm"
+                  style={{ color: "var(--muted)" }}
+                >
+                  Role
+                </p>
+                <p
+                  className="font-medium text-sm sm:text-base capitalize"
+                  style={{ color: "var(--foreground)" }}
+                >
                   {user?.role}
                 </p>
               </div>
             </div>
             <div className="mt-4">
-              <p className="text-gray-600 text-sm mb-2">Permissions</p>
+              <p
+                className="text-xs sm:text-sm mb-2"
+                style={{ color: "var(--muted)" }}
+              >
+                Permissions
+              </p>
               <div className="flex flex-wrap gap-2">
                 {user?.permissions.map((perm) => (
                   <span
                     key={perm}
-                    className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                    className="inline-block px-3 py-1 text-xs sm:text-sm rounded-full text-white"
+                    style={{ background: "var(--primary)" }}
                   >
                     {perm}
                   </span>
@@ -75,8 +97,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Navigation moved to sidebar */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600">
+          <div
+            className="rounded-lg shadow p-4 sm:p-6"
+            style={{ background: "var(--card-bg)" }}
+          >
+            <p style={{ color: "var(--muted)" }}>
               Quick actions have been moved to the left sidebar.
             </p>
           </div>

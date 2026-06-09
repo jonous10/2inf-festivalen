@@ -39,7 +39,7 @@ export default async function Home() {
     >
       {/* Navigasjonsbar */}
       <nav
-        className="sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 bg-white/80 dark:bg-slate-950/80"
+        className="sticky top-0 z-40 backdrop-blur-md border-b transition-all duration-300 bg-white/80 dark:bg-slate-950/80"
         style={{ borderColor: "var(--border)" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,23 +50,23 @@ export default async function Home() {
                 style={{ background: "var(--primary)" }}
               />
               <h1
-                className="text-2xl font-bold"
+                className="text-xl sm:text-2xl font-bold"
                 style={{ color: "var(--foreground)" }}
               >
                 2INF Festival
               </h1>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Link
                 href="/login"
-                className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
+                className="px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 hover:shadow-md"
                 style={{ color: "var(--primary)" }}
               >
                 Logg inn
               </Link>
               <Link
                 href="/register"
-                className="px-4 py-2 rounded-lg font-medium text-white transition-all duration-200 hover:shadow-lg hover:scale-105"
+                className="px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm text-white transition-all duration-200 hover:shadow-lg hover:scale-105"
                 style={{ background: "var(--primary)" }}
               >
                 Registrer deg
@@ -76,9 +76,9 @@ export default async function Home() {
         </div>
       </nav>
 
-      <main className="flex-1 max-w-7xl mx-auto w-full py-20 px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 max-w-7xl mx-auto w-full py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
         {/* Hero Seksjon */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 sm:mb-20">
           <div
             className="inline-block mb-4 px-4 py-2 rounded-full"
             style={{
@@ -88,42 +88,42 @@ export default async function Home() {
             }}
           >
             <span
-              className="text-sm font-medium"
+              className="text-xs sm:text-sm font-medium"
               style={{ color: "var(--accent)" }}
             >
               🎉 Velkommen til
             </span>
           </div>
           <h2
-            className="text-5xl md:text-6xl font-bold mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6"
             style={{ color: "var(--foreground)" }}
           >
             2INF Festivalen
           </h2>
           <p
-            className="text-lg md:text-xl max-w-2xl mx-auto mb-4"
+            className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-3 sm:mb-4"
             style={{ color: "var(--muted)" }}
           >
             Møt diverse IT-bedrifter, elever og fagfolk fra hele landet. En dag
             fullt av inspirasjon, læring og samarbeid!
           </p>
           <p
-            className="text-sm md:text-base max-w-2xl mx-auto mb-10"
+            className="text-xs sm:text-sm md:text-base max-w-2xl mx-auto mb-8 sm:mb-10"
             style={{ color: "var(--muted)" }}
           >
             Utforsk bedrifter, foredrag, rom og møt andre IT-interesserte.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <Link
               href="/login"
-              className="px-8 py-3 rounded-lg font-semibold text-white transition-all duration-200 hover:shadow-lg hover:scale-105"
+              className="px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold text-white text-sm sm:text-base transition-all duration-200 hover:shadow-lg hover:scale-105"
               style={{ background: "var(--primary)" }}
             >
               Logg inn
             </Link>
             <Link
               href="/register"
-              className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg border-2 hover:scale-105"
+              className="px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-200 hover:shadow-lg border-2 hover:scale-105"
               style={{ borderColor: "var(--primary)", color: "var(--primary)" }}
             >
               Opprett konto
@@ -132,17 +132,17 @@ export default async function Home() {
         </div>
 
         {/* Festival Navigasjon */}
-        <div className="mb-20">
+        <div className="mb-12 sm:mb-20">
           <h3
-            className="text-3xl font-bold mb-8 text-center"
+            className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center"
             style={{ color: "var(--foreground)" }}
           >
             Utforsk Festivalen
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <Link
               href="/festival/bedrifter"
-              className="group p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
+              className="group p-4 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",
@@ -168,19 +168,24 @@ export default async function Home() {
                 </svg>
               </div>
               <h4
-                className="text-lg font-bold mb-2"
+                className="text-base sm:text-lg font-bold mb-2"
                 style={{ color: "var(--foreground)" }}
               >
                 Bedrifter
               </h4>
-              <p style={{ color: "var(--muted)", fontSize: "0.875rem" }}>
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "0.75rem sm:0.875rem",
+                }}
+              >
                 Se alle IT-bedriftene som deltar
               </p>
             </Link>
 
             <Link
               href="/festival/foredrag"
-              className="group p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
+              className="group p-4 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",
@@ -206,19 +211,24 @@ export default async function Home() {
                 </svg>
               </div>
               <h4
-                className="text-lg font-bold mb-2"
+                className="text-base sm:text-lg font-bold mb-2"
                 style={{ color: "var(--foreground)" }}
               >
                 Foredrag
               </h4>
-              <p style={{ color: "var(--muted)", fontSize: "0.875rem" }}>
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "0.75rem sm:0.875rem",
+                }}
+              >
                 Spennende presentasjoner fra fagfolk
               </p>
             </Link>
 
             <Link
               href="/festival/rom"
-              className="group p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
+              className="group p-4 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",
@@ -244,19 +254,24 @@ export default async function Home() {
                 </svg>
               </div>
               <h4
-                className="text-lg font-bold mb-2"
+                className="text-base sm:text-lg font-bold mb-2"
                 style={{ color: "var(--foreground)" }}
               >
                 Rom
               </h4>
-              <p style={{ color: "var(--muted)", fontSize: "0.875rem" }}>
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "0.75rem sm:0.875rem",
+                }}
+              >
                 Se rom og utstyr på stedet
               </p>
             </Link>
 
             <Link
               href="/festival/elever"
-              className="group p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
+              className="group p-4 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",
@@ -285,12 +300,17 @@ export default async function Home() {
                 </svg>
               </div>
               <h4
-                className="text-lg font-bold mb-2"
+                className="text-base sm:text-lg font-bold mb-2"
                 style={{ color: "var(--foreground)" }}
               >
                 Elever
               </h4>
-              <p style={{ color: "var(--muted)", fontSize: "0.875rem" }}>
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "0.75rem sm:0.875rem",
+                }}
+              >
                 Finn andre deltakere og lag nettverk
               </p>
             </Link>
@@ -298,29 +318,29 @@ export default async function Home() {
         </div>
 
         {/* Kommende Festivaler */}
-        <div className="mb-20">
+        <div className="mb-12 sm:mb-20">
           <h3
-            className="text-3xl font-bold mb-8 text-center"
+            className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center"
             style={{ color: "var(--foreground)" }}
           >
             📅 Kommende Festivaler
           </h3>
           {festivals.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
               {festivals.map((festival) => (
                 <div
                   key={festival.id}
-                  className="p-8 rounded-2xl transition-all duration-300 hover:shadow-lg"
+                  className="p-4 sm:p-8 rounded-2xl transition-all duration-300 hover:shadow-lg"
                   style={{
                     background: "var(--card-bg)",
                     border: "1px solid",
                     borderColor: "var(--border)",
                   }}
                 >
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
+                  <div className="flex justify-between items-start gap-2 mb-4">
+                    <div className="flex-1">
                       <h4
-                        className="text-xl font-bold"
+                        className="text-lg sm:text-xl font-bold"
                         style={{ color: "var(--foreground)" }}
                       >
                         {festival.navn}
@@ -329,7 +349,7 @@ export default async function Home() {
                         <p
                           style={{
                             color: "var(--accent)",
-                            fontSize: "0.875rem",
+                            fontSize: "0.75rem sm:0.875rem",
                           }}
                         >
                           {new Date(festival.dato).toLocaleDateString("no-NO", {
@@ -341,20 +361,29 @@ export default async function Home() {
                       )}
                     </div>
                     <span
-                      className="px-3 py-1 rounded-full text-xs font-semibold text-white"
+                      className="px-3 py-1 rounded-full text-xs font-semibold text-white whitespace-nowrap"
                       style={{ background: "var(--primary)" }}
                     >
                       Kommende
                     </span>
                   </div>
                   {festival.beskrivelse && (
-                    <p style={{ color: "var(--muted)", marginBottom: "1rem" }}>
+                    <p
+                      style={{
+                        color: "var(--muted)",
+                        marginBottom: "1rem",
+                        fontSize: "0.875rem sm:1rem",
+                      }}
+                    >
                       {festival.beskrivelse}
                     </p>
                   )}
                   <div
-                    style={{ color: "var(--muted)", fontSize: "0.875rem" }}
-                    className="space-y-2"
+                    style={{
+                      color: "var(--muted)",
+                      fontSize: "0.75rem sm:0.875rem",
+                    }}
+                    className="space-y-1 sm:space-y-2"
                   >
                     {festival.sted && <p>📍 Sted: {festival.sted}</p>}
                     {festival.kapasitet && (
@@ -366,7 +395,7 @@ export default async function Home() {
             </div>
           ) : (
             <div
-              className="p-8 rounded-2xl text-center"
+              className="p-6 sm:p-8 rounded-2xl text-center"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",

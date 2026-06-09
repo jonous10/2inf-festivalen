@@ -27,26 +27,26 @@ export default async function BedrifterPage() {
       className="min-h-screen"
       style={{ backgroundColor: "var(--background)" }}
     >
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-12">
           <h1
-            className="text-4xl font-bold mb-3"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3"
             style={{ color: "var(--foreground)" }}
           >
             🏢 Bedrifter
           </h1>
-          <p style={{ color: "var(--muted)" }}>
+          <p style={{ color: "var(--muted)", fontSize: "0.875rem sm:1rem" }}>
             {bedrifter.length} bedrifter deltar på festivalen
           </p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {bedrifter.map((b: any) => (
             <div
               key={b.id}
-              className="group rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+              className="group rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",
@@ -56,7 +56,7 @@ export default async function BedrifterPage() {
               {/* Topp info */}
               <div className="mb-4">
                 <h3
-                  className="text-xl font-bold mb-2"
+                  className="text-base sm:text-lg lg:text-xl font-bold mb-2"
                   style={{ color: "var(--foreground)" }}
                 >
                   {b.navn}
@@ -74,10 +74,13 @@ export default async function BedrifterPage() {
                 className="mb-4 p-3 rounded-lg"
                 style={{ background: "var(--primary)" }}
               >
-                <p className="text-sm" style={{ color: "white" }}>
+                <p className="text-xs sm:text-sm" style={{ color: "white" }}>
                   Stand
                 </p>
-                <p className="text-2xl font-bold" style={{ color: "white" }}>
+                <p
+                  className="text-xl sm:text-2xl font-bold"
+                  style={{ color: "white" }}
+                >
                   {b.standnummer}
                 </p>
               </div>
@@ -93,14 +96,14 @@ export default async function BedrifterPage() {
                     👤 KONTAKTPERSON
                   </p>
                   <p
-                    className="text-sm mt-1"
+                    className="text-xs sm:text-sm mt-1"
                     style={{ color: "var(--foreground)" }}
                   >
                     {b.kontaktperson}
                   </p>
                   <a
                     href={`mailto:${b.epost}`}
-                    className="text-sm transition-colors duration-200 hover:underline"
+                    className="text-xs sm:text-sm transition-colors duration-200 hover:underline"
                     style={{ color: "var(--primary)" }}
                   >
                     ✉️ {b.epost}
@@ -120,7 +123,7 @@ export default async function BedrifterPage() {
                       href={b.nettside}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm transition-colors duration-200 hover:underline mt-1 inline-block"
+                      className="text-xs sm:text-sm transition-colors duration-200 hover:underline mt-1 inline-block"
                       style={{ color: "var(--accent)" }}
                     >
                       {b.nettside}
@@ -136,7 +139,7 @@ export default async function BedrifterPage() {
                   style={{ background: "#10b981" }}
                 >
                   <span
-                    className="text-sm font-semibold"
+                    className="text-xs sm:text-sm font-semibold"
                     style={{ color: "white" }}
                   >
                     🎤 Holder foredrag

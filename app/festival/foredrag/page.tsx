@@ -27,23 +27,26 @@ export default async function ForedragPage() {
       className="min-h-screen"
       style={{ backgroundColor: "var(--background)" }}
     >
-      <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-3" style={{ color: "#1f2937" }}>
+        <div className="mb-8 sm:mb-12">
+          <h1
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3"
+            style={{ color: "var(--foreground)" }}
+          >
             🎤 Foredrag
           </h1>
-          <p style={{ color: "var(--muted)" }}>
+          <p style={{ color: "var(--muted)", fontSize: "0.875rem sm:1rem" }}>
             {foredrag.length} foredrag på festivalen
           </p>
         </div>
 
         {/* Liste */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {foredrag.map((f: any) => (
             <div
               key={f.id}
-              className="rounded-2xl p-6 transition-all duration-300 hover:shadow-lg border-l-4"
+              className="rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg border-l-4"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid",
@@ -51,16 +54,22 @@ export default async function ForedragPage() {
                 borderLeftColor: getCategoryColor(f.kategori),
               }}
             >
-              <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+              <div className="flex flex-col gap-4">
                 {/* Innhold */}
                 <div className="flex-1">
                   <h3
-                    className="text-2xl font-bold mb-2"
+                    className="text-lg sm:text-xl lg:text-2xl font-bold mb-2"
                     style={{ color: "var(--foreground)" }}
                   >
                     {f.tittel}
                   </h3>
-                  <p style={{ color: "var(--muted)" }} className="mb-4">
+                  <p
+                    style={{
+                      color: "var(--muted)",
+                      fontSize: "0.875rem sm:1rem",
+                    }}
+                    className="mb-4"
+                  >
                     {f.beskrivelse}
                   </p>
 
@@ -92,31 +101,21 @@ export default async function ForedragPage() {
                     </span>
                   </div>
 
-                  {/* Tid */}
-                  <p className="text-sm" style={{ color: "var(--muted)" }}>
-                    🕐 {f.startTid} — {f.sluttTid}
-                  </p>
-                </div>
-
-                {/* Bedrift sidebar */}
-                <div
-                  className="md:w-40 p-4 rounded-lg text-center"
-                  style={{
-                    background: "var(--primary)",
-                  }}
-                >
-                  <p
-                    className="text-xs font-semibold"
-                    style={{ color: "white" }}
-                  >
-                    HOLDER
-                  </p>
-                  <p
-                    className="text-sm font-bold mt-2"
-                    style={{ color: "white" }}
-                  >
-                    {f.bedrift || "Ukjent"}
-                  </p>
+                  {/* Tid og holder */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <p
+                      className="text-xs sm:text-sm"
+                      style={{ color: "var(--muted)" }}
+                    >
+                      🕐 {f.startTid} — {f.sluttTid}
+                    </p>
+                    <p
+                      className="text-xs sm:text-sm font-semibold"
+                      style={{ color: "var(--primary)" }}
+                    >
+                      📍 Holder: {f.bedrift || "Ukjent"}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
