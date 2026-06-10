@@ -130,7 +130,7 @@ export default function Sidebar() {
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  title={collapsed ? "Home" : undefined}
+                  title={collapsed ? "Hjem" : undefined}
                   className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
                   style={{ color: "var(--foreground)" }}
                 >
@@ -150,7 +150,7 @@ export default function Sidebar() {
                     className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
                     style={{ color: "var(--foreground)" }}
                   >
-                    Home
+                    Hjem
                   </span>
                 </Link>
               </li>
@@ -188,7 +188,7 @@ export default function Sidebar() {
                 <Link
                   href="/profile"
                   onClick={closeMobileMenu}
-                  title={collapsed ? "My Profile" : undefined}
+                  title={collapsed ? "Min Profil" : undefined}
                   className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
                   style={{ color: "var(--foreground)" }}
                 >
@@ -206,11 +206,138 @@ export default function Sidebar() {
                     className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
                     style={{ color: "var(--foreground)" }}
                   >
-                    My Profile
+                    Min Profil
                   </span>
                 </Link>
               </li>
 
+              <li>
+                <Link
+                  href="/festival/rom"
+                  onClick={closeMobileMenu}
+                  title={collapsed ? "Rom" : undefined}
+                  className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  <svg
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ color: "var(--primary)" }}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="currentColor"
+                      opacity="0.2"
+                    />
+                    <path
+                      d="M7 7h10M7 11h10M7 15h6"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span
+                    className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    Rom
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/festival/bedrifter"
+                  onClick={closeMobileMenu}
+                  title={collapsed ? "Alle Bedrifter" : undefined}
+                  className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  <svg
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ color: "var(--primary)" }}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2 8a2 2 0 012-2h16a2 2 0 012 2v11a1 1 0 01-1 1H3a1 1 0 01-1-1V8z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="currentColor"
+                      opacity="0.2"
+                    />
+                    <path
+                      d="M7 5V3M17 5V3"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M6 12h3M6 15h3M15 12h3M15 15h3"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span
+                    className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    Alle Bedrifter
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/festival/foredrag"
+                  onClick={closeMobileMenu}
+                  title={collapsed ? "Alle Foredrag" : undefined}
+                  className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  <svg
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ color: "var(--primary)" }}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 2a1 1 0 011 1v4a1 1 0 11-2 0V3a1 1 0 011-1z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M12 10a3 3 0 100 6 3 3 0 000-6z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="currentColor"
+                      opacity="0.2"
+                    />
+                    <path
+                      d="M12 18v3M8 22h8"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M5 13l-2 2M19 13l2 2"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span
+                    className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    Alle Foredrag
+                  </span>
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/festival/mine-foredrag"
