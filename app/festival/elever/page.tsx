@@ -1,4 +1,5 @@
 import { getConnection } from "@/lib/db";
+import ForedragActionButton from "@/app/components/ForedragButtons";
 import { RowDataPacket } from "mysql2";
 export const dynamic = "force-dynamic";
 
@@ -124,19 +125,14 @@ export default async function ElevMineForedragPage() {
                   🕒 {f.startTid} — {f.sluttTid}
                 </p>
 
-                <form
-                  action="/api/foredrag/unregister"
-                  method="POST"
-                  className="mt-4"
-                >
-                  <input type="hidden" name="foredrag_id" value={f.id} />
-                  <button
-                    type="submit"
-                    className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-all"
-                  >
-                    Meld av
-                  </button>
-                </form>
+                <div className="mt-4">
+                  {/* Client-side action button */}
+                  {/* @ts-ignore Server -> client prop passing */}
+                  <ForedragActionButton
+                    foredragId={f.id}
+                    variant="unregister"
+                  />
+                </div>
               </div>
             ))}
           </div>

@@ -1,5 +1,6 @@
 import { getConnection } from "@/lib/db";
 import Link from "next/link";
+import ForedragActionButton from "@/app/components/ForedragButtons";
 
 export default async function ForedragPage() {
   const conn = await getConnection();
@@ -126,20 +127,14 @@ export default async function ForedragPage() {
                     </div>
 
                     {/* Påmelding */}
-                    <form action="/api/foredrag/register" method="POST">
-                      <input type="hidden" name="foredrag_id" value={f.id} />
-                      <button
-                        type="submit"
+                    <div>
+                      {/* @ts-ignore Server -> client prop passing */}
+                      <ForedragActionButton
+                        foredragId={f.id}
+                        variant="register"
                         disabled={ledige <= 0}
-                        className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                          ledige > 0
-                            ? "bg-blue-600 text-white hover:bg-blue-700"
-                            : "bg-gray-400 text-gray-700 cursor-not-allowed"
-                        }`}
-                      >
-                        {ledige > 0 ? "Meld på" : "Fullt"}
-                      </button>
-                    </form>
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

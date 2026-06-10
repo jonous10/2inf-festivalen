@@ -4,8 +4,21 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const formData = await req.formData();
-    const foredrag_id = formData.get("foredrag_id");
+    const contentType = req.headers.get("content-type") || "";
+    let foredrag_id: any;
+    if (contentType.includes("application/json")) {
+      const body = await req.json();
+      foredrag_id = body.foredrag_id;
+    } else {
+      const formData = await req.formData();
+      foredrag_id = formData.get("foredrag_id");
+    }
+
+    const foredragIdNum = Number(foredrag_id);
+    if (!foredragIdNum || isNaN(foredragIdNum)) {
+      return NextResponse.json({ error: "invalid_id" }, { status: 400 });
+    }
+
     const elev_id = 1; // TODO: hent fra session
 
     const conn = await getConnection();
@@ -18,9 +31,10 @@ export async function POST(req: Request) {
     const antall = (countRows as any)[0].antall;
     if (antall >= 3) {
       await conn.end();
-      return NextResponse.redirect("/festival/foredrag?error=max3", {
-        status: 303,
-      });
+      return NextResponse.json(
+        { error: "max3", redirect: "/festival/foredrag?error=max3" },
+        { status: 409 },
+      );
     }
 
     // Sjekk overlapp
@@ -31,13 +45,14 @@ export async function POST(req: Request) {
          (f.startTid <= (SELECT sluttTid FROM foredrag WHERE id = ?) 
           AND f.sluttTid >= (SELECT startTid FROM foredrag WHERE id = ?))
        )`,
-      [elev_id, foredrag_id, foredrag_id],
+      [elev_id, foredragIdNum, foredragIdNum],
     );
     if ((overlapRows as any).length > 0) {
       await conn.end();
-      return NextResponse.redirect("/festival/foredrag?error=overlap", {
-        status: 303,
-      });
+      return NextResponse.json(
+        { error: "overlap", redirect: "/festival/foredrag?error=overlap" },
+        { status: 409 },
+      );
     }
 
     // Sjekk kapasitet
@@ -47,28 +62,35 @@ export async function POST(req: Request) {
        LEFT JOIN elever_foredrag ef ON ef.foredrag_id = f.id
        WHERE f.id = ?
        GROUP BY f.id`,
-      [foredrag_id],
+      [foredragIdNum],
     );
-    const { maksPlasser, antallPaameldte } = (capRows as any)[0];
+    const capRow = (capRows as any)[0];
+    const maksPlasser = capRow?.maksPlasser ?? 0;
+    const antallPaameldte = capRow?.antallPaameldte ?? 0;
     if (antallPaameldte >= maksPlasser) {
       await conn.end();
-      return NextResponse.redirect("/festival/foredrag?error=fullt", {
-        status: 303,
-      });
+      return NextResponse.json(
+        { error: "fullt", redirect: "/festival/foredrag?error=fullt" },
+        { status: 409 },
+      );
     }
 
     // Registrer
     await conn.execute(
       "INSERT INTO elever_foredrag (elev_id, foredrag_id) VALUES (?, ?)",
-      [elev_id, foredrag_id],
+      [elev_id, foredragIdNum],
     );
     await conn.end();
 
-    return NextResponse.redirect("/festival/elever?success=1", { status: 303 });
+    return NextResponse.json(
+      { ok: true, redirect: "/festival/elever?success=1" },
+      { status: 200 },
+    );
   } catch (error) {
     console.error("Feil ved påmelding:", error);
-    return NextResponse.redirect("/festival/foredrag?error=server", {
-      status: 303,
-    });
+    return NextResponse.json(
+      { error: "server", redirect: "/festival/foredrag?error=server" },
+      { status: 500 },
+    );
   }
 }
