@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { getConnection } from "@/lib/db";
-import dynamic from "next/dynamic";
-
-const FestivalMap = dynamic(() => import("./components/FestivalMap"), {
-  ssr: false,
-});
+import FestivalMapWrapper from "./components/FestivalMapWrapper";
 
 interface Festival {
   id: number;
@@ -414,7 +410,7 @@ export default async function Home() {
           )}
         </div>
         <div className="p-8">
-          <FestivalMap />
+          <FestivalMapWrapper />
         </div>
 
         {/* Funksjoner */}
