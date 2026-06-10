@@ -271,7 +271,7 @@ export default async function Home() {
             </Link>
 
             <Link
-              href="/festival/elever"
+              href="/festival/mine-foredrag"
               className="group p-4 sm:p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
               style={{
                 background: "var(--card-bg)",
@@ -304,7 +304,7 @@ export default async function Home() {
                 className="text-base sm:text-lg font-bold mb-2"
                 style={{ color: "var(--foreground)" }}
               >
-                Elever
+                Dine Påmeldinger
               </h4>
               <p
                 style={{
@@ -312,7 +312,7 @@ export default async function Home() {
                   fontSize: "0.75rem sm:0.875rem",
                 }}
               >
-                Finn andre deltakere og lag nettverk
+                Hold oversikt over foredragene du skal være med på
               </p>
             </Link>
           </div>

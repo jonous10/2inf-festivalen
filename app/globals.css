@@ -6,8 +6,8 @@
   --muted: #64748b;
   --border: #e2e8f0;
   --card-bg: #f8fafc;
-  --primary: #0066ff;
-  --primary-hover: #0052cc;
+  --primary: #87b7ff;
+  --primary-hover: #a1c6ff;
   --accent: #06b6d4;
 }
 
@@ -25,8 +25,8 @@
     --muted: #94a3b8;
     --border: #1e293b;
     --card-bg: #1e293b;
-    --primary: #0066ff;
-    --primary-hover: #0052cc;
+    --primary: #00317b;
+    --primary-hover: #0044aa;
     --accent: #06b6d4;
   }
 
