@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nordic Devices",
-  description: "User management system with authentication",
+  title: "2INF Festival",
+  description: "Et Eksamens projekt for den fiktive 2INF Festivalen",
 };
 
 export default function RootLayout({

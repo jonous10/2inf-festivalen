@@ -4,8 +4,13 @@ import { getConnection } from "@/lib/db";
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
-    const foredrag_id = formData.get("foredrag_id");
+    const foredrag_id_raw = formData.get("foredrag_id");
+    const foredrag_id = Number(foredrag_id_raw);
     const elev_id = 1; // TODO: hent fra session
+
+    if (!foredrag_id || isNaN(foredrag_id)) {
+      return NextResponse.redirect("/festival/elever?error=invalid_id");
+    }
 
     const conn = await getConnection();
 
