@@ -1,5 +1,6 @@
 import { getConnection } from "@/lib/db";
 import { RowDataPacket } from "mysql2";
+export const dynamic = "force-dynamic";
 
 export default async function ElevMineForedragPage() {
   const elev_id = 1; // TODO: hent fra session / auth/me

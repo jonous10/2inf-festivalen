@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getConnection } from "@/lib/db";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
@@ -9,7 +10,9 @@ export async function POST(req: Request) {
     const elev_id = 1; // TODO: hent fra session
 
     if (!foredrag_id || isNaN(foredrag_id)) {
-      return NextResponse.redirect("/festival/elever?error=invalid_id");
+      return NextResponse.redirect("/festival/elever?error=invalid_id", {
+        status: 303,
+      });
     }
 
     const conn = await getConnection();
@@ -22,7 +25,9 @@ export async function POST(req: Request) {
 
     if ((rows as any).length === 0) {
       await conn.end();
-      return NextResponse.redirect("/festival/elever?error=notfound");
+      return NextResponse.redirect("/festival/elever?error=notfound", {
+        status: 303,
+      });
     }
 
     // Slett påmelding
@@ -33,9 +38,13 @@ export async function POST(req: Request) {
 
     await conn.end();
 
-    return NextResponse.redirect("/festival/elever?success=unregistered");
+    return NextResponse.redirect("/festival/elever?success=unregistered", {
+      status: 303,
+    });
   } catch (error) {
     console.error("Feil ved avmelding:", error);
-    return NextResponse.redirect("/festival/elever?error=server");
+    return NextResponse.redirect("/festival/elever?error=server", {
+      status: 303,
+    });
   }
 }

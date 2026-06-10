@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getConnection } from "@/lib/db";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
@@ -17,7 +18,9 @@ export async function POST(req: Request) {
     const antall = (countRows as any)[0].antall;
     if (antall >= 3) {
       await conn.end();
-      return NextResponse.redirect("/festival/foredrag?error=max3");
+      return NextResponse.redirect("/festival/foredrag?error=max3", {
+        status: 303,
+      });
     }
 
     // Sjekk overlapp
@@ -32,7 +35,9 @@ export async function POST(req: Request) {
     );
     if ((overlapRows as any).length > 0) {
       await conn.end();
-      return NextResponse.redirect("/festival/foredrag?error=overlap");
+      return NextResponse.redirect("/festival/foredrag?error=overlap", {
+        status: 303,
+      });
     }
 
     // Sjekk kapasitet
@@ -47,7 +52,9 @@ export async function POST(req: Request) {
     const { maksPlasser, antallPaameldte } = (capRows as any)[0];
     if (antallPaameldte >= maksPlasser) {
       await conn.end();
-      return NextResponse.redirect("/festival/foredrag?error=fullt");
+      return NextResponse.redirect("/festival/foredrag?error=fullt", {
+        status: 303,
+      });
     }
 
     // Registrer
@@ -57,9 +64,11 @@ export async function POST(req: Request) {
     );
     await conn.end();
 
-    return NextResponse.redirect("/festival/elever?success=1");
+    return NextResponse.redirect("/festival/elever?success=1", { status: 303 });
   } catch (error) {
     console.error("Feil ved påmelding:", error);
-    return NextResponse.redirect("/festival/foredrag?error=server");
+    return NextResponse.redirect("/festival/foredrag?error=server", {
+      status: 303,
+    });
   }
 }
