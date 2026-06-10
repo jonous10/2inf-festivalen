@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { getConnection } from "@/lib/db";
-import FestivalMap from "./components/FestivalMap";
+import dynamic from "next/dynamic";
+
+const FestivalMap = dynamic(() => import("./components/FestivalMap"), {
+  ssr: false,
+});
 
 interface Festival {
   id: number;
