@@ -3,9 +3,15 @@ import Link from "next/link";
 
 export default async function ForedragPage() {
   const conn = await getConnection();
-  const [rows] = await conn.execute(
-    `SELECT f.*, b.navn as bedrift FROM foredrag f LEFT JOIN bedrifter b ON f.holderBedriftId = b.id ORDER BY f.startTid`,
-  );
+  const [rows] = await conn.execute(`
+    SELECT f.*, b.navn AS bedrift, 
+           COUNT(ef.id) AS antallPaameldte
+    FROM foredrag f
+    LEFT JOIN bedrifter b ON f.holderBedriftId = b.id
+    LEFT JOIN elever_foredrag ef ON ef.foredrag_id = f.id
+    GROUP BY f.id
+    ORDER BY f.startTid
+  `);
   await conn.end();
   // @ts-ignore
   const foredrag = Array.isArray(rows) ? rows : [];
@@ -43,83 +49,102 @@ export default async function ForedragPage() {
 
         {/* Liste */}
         <div className="space-y-3 sm:space-y-4">
-          {foredrag.map((f: any) => (
-            <div
-              key={f.id}
-              className="rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg border-l-4"
-              style={{
-                background: "var(--card-bg)",
-                border: "1px solid",
-                borderColor: "var(--border)",
-                borderLeftColor: getCategoryColor(f.kategori),
-              }}
-            >
-              <div className="flex flex-col gap-4">
-                {/* Innhold */}
-                <div className="flex-1">
-                  <h3
-                    className="text-lg sm:text-xl lg:text-2xl font-bold mb-2"
-                    style={{ color: "var(--foreground)" }}
-                  >
-                    {f.tittel}
-                  </h3>
-                  <p
-                    style={{
-                      color: "var(--muted)",
-                      fontSize: "0.875rem sm:1rem",
-                    }}
-                    className="mb-4"
-                  >
-                    {f.beskrivelse}
-                  </p>
-
-                  {/* Tags og info */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span
-                      className="text-xs font-semibold px-3 py-1 rounded-full text-white"
-                      style={{ background: getCategoryColor(f.kategori) }}
+          {foredrag.map((f: any) => {
+            const ledige = f.maksPlasser - f.antallPaameldte;
+            return (
+              <div
+                key={f.id}
+                className="rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg border-l-4"
+                style={{
+                  background: "var(--card-bg)",
+                  border: "1px solid",
+                  borderColor: "var(--border)",
+                  borderLeftColor: getCategoryColor(f.kategori),
+                }}
+              >
+                <div className="flex flex-col gap-4">
+                  {/* Innhold */}
+                  <div className="flex-1">
+                    <h3
+                      className="text-lg sm:text-xl lg:text-2xl font-bold mb-2"
+                      style={{ color: "var(--foreground)" }}
                     >
-                      📌 {f.kategori}
-                    </span>
-                    <span
-                      className="text-xs font-semibold px-3 py-1 rounded-full"
-                      style={{
-                        background: "var(--primary)",
-                        color: "white",
-                      }}
-                    >
-                      🏛️ Rom {f.rom}
-                    </span>
-                    <span
-                      className="text-xs font-semibold px-3 py-1 rounded-full"
-                      style={{
-                        background: "var(--accent)",
-                        color: "white",
-                      }}
-                    >
-                      👥 Maks {f.maksPlasser}
-                    </span>
-                  </div>
-
-                  {/* Tid og holder */}
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                      {f.tittel}
+                    </h3>
                     <p
-                      className="text-xs sm:text-sm"
-                      style={{ color: "var(--muted)" }}
+                      style={{
+                        color: "var(--muted)",
+                        fontSize: "0.875rem sm:1rem",
+                      }}
+                      className="mb-4"
                     >
-                      🕐 {f.startTid} — {f.sluttTid}
+                      {f.beskrivelse}
                     </p>
-                    <p
-                      className="text-xs sm:text-sm font-semibold"
-                      style={{ color: "var(--primary)" }}
-                    >
-                      📍 Holder: {f.bedrift || "Ukjent"}
-                    </p>
+
+                    {/* Tags og info */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span
+                        className="text-xs font-semibold px-3 py-1 rounded-full text-white"
+                        style={{ background: getCategoryColor(f.kategori) }}
+                      >
+                        📌 {f.kategori}
+                      </span>
+                      <span
+                        className="text-xs font-semibold px-3 py-1 rounded-full"
+                        style={{
+                          background: "var(--primary)",
+                          color: "white",
+                        }}
+                      >
+                        🏛️ Rom {f.rom}
+                      </span>
+                      <span
+                        className="text-xs font-semibold px-3 py-1 rounded-full"
+                        style={{
+                          background: "var(--accent)",
+                          color: "white",
+                        }}
+                      >
+                        👥 {f.antallPaameldte}/{f.maksPlasser} påmeldt
+                      </span>
+                    </div>
+
+                    {/* Tid og holder */}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
+                      <p
+                        className="text-xs sm:text-sm"
+                        style={{ color: "var(--muted)" }}
+                      >
+                        🕐 {f.startTid} — {f.sluttTid}
+                      </p>
+                      <p
+                        className="text-xs sm:text-sm font-semibold"
+                        style={{ color: "var(--primary)" }}
+                      >
+                        📍 Holder: {f.bedrift || "Ukjent"}
+                      </p>
+                    </div>
+
+                    {/* Påmelding */}
+                    <form action="/api/foredrag/register" method="POST">
+                      <input type="hidden" name="foredrag_id" value={f.id} />
+                      <button
+                        type="submit"
+                        disabled={ledige <= 0}
+                        className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                          ledige > 0
+                            ? "bg-blue-600 text-white hover:bg-blue-700"
+                            : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                        }`}
+                      >
+                        {ledige > 0 ? "Meld på" : "Fullt"}
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
