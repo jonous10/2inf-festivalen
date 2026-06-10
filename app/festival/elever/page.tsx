@@ -1,29 +1,43 @@
 import { getConnection } from "@/lib/db";
+import { RowDataPacket } from "mysql2";
 
-export default async function EleverPage() {
+export default async function ElevMineForedragPage() {
+  const elev_id = 1; // TODO: hent fra session / auth/me
+
   const conn = await getConnection();
-  const [rows] = await conn.execute(
-    "SELECT * FROM elever ORDER BY klasse, gruppe, navn LIMIT 200",
+
+  // Hent elevinfo
+  const [elevRows] = await conn.execute<RowDataPacket[]>(
+    "SELECT * FROM elever WHERE id = ? LIMIT 1",
+    [elev_id],
   );
+
+  // Hent elevens påmeldte foredrag
+  const [foredragRows] = await conn.execute<RowDataPacket[]>(
+    `SELECT f.tittel, f.startTid, f.sluttTid, f.rom, f.kategori, b.navn AS bedrift
+     FROM elever_foredrag ef
+     JOIN foredrag f ON ef.foredrag_id = f.id
+     LEFT JOIN bedrifter b ON f.holderBedriftId = b.id
+     WHERE ef.elev_id = ?
+     ORDER BY f.startTid`,
+    [elev_id],
+  );
+
   await conn.end();
-  // @ts-ignore
-  const elever = Array.isArray(rows) ? rows : [];
 
-  const getRoleColor = (rolle: string) => {
+  const elev = elevRows.length > 0 ? elevRows[0] : null;
+  const foredrag = foredragRows;
+
+  const getCategoryColor = (kategori: string) => {
     const colors: Record<string, string> = {
-      Vertskap: "#10b981",
-      Programvert: "#3b82f6",
-      Assistent: "#f59e0b",
+      Utvikling: "#3b82f6",
+      Drift: "#10b981",
+      Sikkerhet: "#ef4444",
+      Karriere: "#f59e0b",
+      "Kunstig intelligens": "#8b5cf6",
+      Kunnskap: "#0ea5e9",
     };
-    return colors[rolle] || "#6366f1";
-  };
-
-  const getInitials = (navn: string) => {
-    return navn
-      .split(" ")
-      .map((word) => word[0])
-      .join("")
-      .toUpperCase();
+    return colors[kategori] || "#6366f1";
   };
 
   return (
@@ -31,98 +45,87 @@ export default async function EleverPage() {
       className="min-h-screen"
       style={{ backgroundColor: "var(--background)" }}
     >
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12">
           <h1
             className="text-4xl font-bold mb-3"
             style={{ color: "var(--foreground)" }}
           >
-            👥 Elever
+            🎓 Min Påmelding
           </h1>
-          <p style={{ color: "var(--muted)" }}>
-            {elever.length} deltakere på festivalen
-          </p>
+
+          {elev && (
+            <p style={{ color: "var(--muted)" }}>
+              {elev.navn} • {elev.klasse} • Gruppe {elev.gruppe}
+            </p>
+          )}
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {elever.map((e: any) => (
-            <div
-              key={e.id}
-              className="group rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
-              style={{
-                background: "var(--card-bg)",
-                border: "1px solid",
-                borderColor: "var(--border)",
-              }}
-            >
-              {/* Avatar + Navn */}
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, var(--primary), var(--accent))",
-                  }}
-                >
-                  {getInitials(e.navn)}
-                </div>
-                <h3
-                  className="text-lg font-bold"
-                  style={{ color: "var(--foreground)" }}
-                >
-                  {e.navn}
-                </h3>
-              </div>
+        {/* Ingen påmeldinger */}
+        {foredrag.length === 0 && (
+          <div
+            className="p-6 rounded-2xl text-center"
+            style={{
+              background: "var(--card-bg)",
+              border: "1px solid",
+              borderColor: "var(--border)",
+            }}
+          >
+            <p style={{ color: "var(--muted)" }}>
+              Du er ikke påmeldt noen foredrag ennå.
+            </p>
+          </div>
+        )}
 
-              {/* Rolle badge */}
-              <div className="mb-4">
-                <span
-                  className="text-xs font-semibold px-3 py-1 rounded-full text-white"
-                  style={{ background: getRoleColor(e.rolle) }}
-                >
-                  🎯 {e.rolle}
-                </span>
-              </div>
-
-              {/* Klasse og gruppe */}
+        {/* Liste over påmeldte foredrag */}
+        {foredrag.length > 0 && (
+          <div className="space-y-4">
+            {foredrag.map((f: any, index: number) => (
               <div
-                className="mb-4 p-3 rounded-lg"
+                key={index}
+                className="rounded-2xl p-6 transition-all duration-300 hover:shadow-lg border-l-4"
                 style={{
-                  background: "var(--primary)",
+                  background: "var(--card-bg)",
+                  border: "1px solid",
+                  borderColor: "var(--border)",
+                  borderLeftColor: getCategoryColor(f.kategori),
                 }}
               >
-                <p className="text-xs font-semibold" style={{ color: "white" }}>
-                  📚 KLASSE & GRUPPE
-                </p>
-                <p
-                  className="text-sm font-bold mt-1"
-                  style={{ color: "white" }}
+                <h3
+                  className="text-xl font-bold mb-2"
+                  style={{ color: "var(--foreground)" }}
                 >
-                  {e.klasse} • Gruppe {e.gruppe}
-                </p>
-              </div>
+                  {f.tittel}
+                </h3>
 
-              {/* Epost */}
-              <div>
-                <p
-                  className="text-xs font-semibold mb-2"
-                  style={{ color: "var(--muted)" }}
-                >
-                  ✉️ EPOST
+                <p className="text-sm mb-3" style={{ color: "var(--muted)" }}>
+                  📍 {f.bedrift || "Ukjent bedrift"}
                 </p>
-                <a
-                  href={`mailto:${e.epost}`}
-                  className="text-sm transition-colors duration-200 hover:underline"
-                  style={{ color: "var(--accent)" }}
-                >
-                  {e.epost}
-                </a>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span
+                    className="text-xs font-semibold px-3 py-1 rounded-full text-white"
+                    style={{ background: getCategoryColor(f.kategori) }}
+                  >
+                    {f.kategori}
+                  </span>
+
+                  <span
+                    className="text-xs font-semibold px-3 py-1 rounded-full"
+                    style={{ background: "var(--primary)", color: "white" }}
+                  >
+                    🏛️ Rom {f.rom}
+                  </span>
+                </div>
+
+                <p className="text-sm" style={{ color: "var(--muted)" }}>
+                  🕒 {f.startTid} — {f.sluttTid}
+                </p>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
