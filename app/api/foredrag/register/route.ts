@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 import { getConnection } from "@/lib/db";
+import { getSession } from "@/lib/session";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    // Get authenticated user
+    const session = await getSession();
+    if (!session?.userId) {
+      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    }
+    const user_id = session.userId;
+
     const contentType = req.headers.get("content-type") || "";
     let foredrag_id: any;
     if (contentType.includes("application/json")) {
@@ -19,14 +27,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "invalid_id" }, { status: 400 });
     }
 
-    const elev_id = 1; // TODO: hent fra session
-
     const conn = await getConnection();
 
     // Sjekk antall påmeldinger
     const [countRows] = await conn.execute(
-      "SELECT COUNT(*) AS antall FROM elever_foredrag WHERE elev_id = ?",
-      [elev_id],
+      "SELECT COUNT(*) AS antall FROM elever_foredrag WHERE user_id = ?",
+      [user_id],
     );
     const antall = (countRows as any)[0].antall;
     if (antall >= 3) {
@@ -41,11 +47,11 @@ export async function POST(req: Request) {
     const [overlapRows] = await conn.execute(
       `SELECT f.id FROM foredrag f
        JOIN elever_foredrag ef ON ef.foredrag_id = f.id
-       WHERE ef.elev_id = ? AND (
+       WHERE ef.user_id = ? AND (
          (f.startTid <= (SELECT sluttTid FROM foredrag WHERE id = ?) 
           AND f.sluttTid >= (SELECT startTid FROM foredrag WHERE id = ?))
        )`,
-      [elev_id, foredragIdNum, foredragIdNum],
+      [user_id, foredragIdNum, foredragIdNum],
     );
     if ((overlapRows as any).length > 0) {
       await conn.end();
@@ -77,13 +83,13 @@ export async function POST(req: Request) {
 
     // Registrer
     await conn.execute(
-      "INSERT INTO elever_foredrag (elev_id, foredrag_id) VALUES (?, ?)",
-      [elev_id, foredragIdNum],
+      "INSERT INTO elever_foredrag (user_id, foredrag_id) VALUES (?, ?)",
+      [user_id, foredragIdNum],
     );
     await conn.end();
 
     return NextResponse.json(
-      { ok: true, redirect: "/festival/elever?success=1" },
+      { ok: true, redirect: "/festival/mine-foredrag?success=1" },
       { status: 200 },
     );
   } catch (error) {

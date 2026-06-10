@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 import { getConnection } from "@/lib/db";
+import { getSession } from "@/lib/session";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    // Get authenticated user
+    const session = await getSession();
+    if (!session?.userId) {
+      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    }
+    const user_id = session.userId;
+
     const contentType = req.headers.get("content-type") || "";
     let foredrag_id: any;
     if (contentType.includes("application/json")) {
@@ -15,7 +23,6 @@ export async function POST(req: Request) {
     }
 
     const foredragId = Number(foredrag_id);
-    const elev_id = 1; // TODO: hent fra session
 
     if (!foredragId || isNaN(foredragId)) {
       return NextResponse.json({ error: "invalid_id" }, { status: 400 });
@@ -25,8 +32,8 @@ export async function POST(req: Request) {
 
     // Sjekk om påmelding finnes
     const [rows] = await conn.execute(
-      "SELECT id FROM elever_foredrag WHERE elev_id = ? AND foredrag_id = ?",
-      [elev_id, foredragId],
+      "SELECT id FROM elever_foredrag WHERE user_id = ? AND foredrag_id = ?",
+      [user_id, foredragId],
     );
 
     if ((rows as any).length === 0) {
@@ -36,14 +43,14 @@ export async function POST(req: Request) {
 
     // Slett påmelding
     await conn.execute(
-      "DELETE FROM elever_foredrag WHERE elev_id = ? AND foredrag_id = ?",
-      [elev_id, foredragId],
+      "DELETE FROM elever_foredrag WHERE user_id = ? AND foredrag_id = ?",
+      [user_id, foredragId],
     );
 
     await conn.end();
 
     return NextResponse.json(
-      { ok: true, redirect: "/festival/elever?success=unregistered" },
+      { ok: true, redirect: "/festival/mine-foredrag?success=unregistered" },
       { status: 200 },
     );
   } catch (error) {

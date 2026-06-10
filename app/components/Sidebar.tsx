@@ -211,6 +211,74 @@ export default function Sidebar() {
                 </Link>
               </li>
 
+              <li>
+                <Link
+                  href="/festival/mine-foredrag"
+                  onClick={closeMobileMenu}
+                  title={collapsed ? "Mine Foredrag" : undefined}
+                  className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  <svg
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ color: "var(--primary)" }}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 00.948-.684l1.498-4.493a1 1 0 011.502 0l1.498 4.493a1 1 0 00.948.684H19a2 2 0 012 2v2H3V5z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M3 8h18v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span
+                    className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    Mine Foredrag
+                  </span>
+                </Link>
+              </li>
+
+              <PermissionGate permission="manage_users">
+                <li>
+                  <Link
+                    href="/admin/foredrag"
+                    onClick={closeMobileMenu}
+                    title={collapsed ? "Foredrag Oversikt" : undefined}
+                    className="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    <svg
+                      className="w-5 h-5 flex-shrink-0"
+                      style={{ color: "var(--primary)" }}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className={`text-sm font-medium transition-all duration-300 ${collapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"}`}
+                      style={{ color: "var(--foreground)" }}
+                    >
+                      Foredrag Oversikt
+                    </span>
+                  </Link>
+                </li>
+              </PermissionGate>
+
               <PermissionGate permission="manage_users">
                 <li>
                   <Link
