@@ -14,7 +14,7 @@ export default async function ElevMineForedragPage() {
 
   // Hent elevens påmeldte foredrag
   const [foredragRows] = await conn.execute<RowDataPacket[]>(
-    `SELECT f.tittel, f.startTid, f.sluttTid, f.rom, f.kategori, b.navn AS bedrift
+    `SELECT f.id, f.tittel, f.startTid, f.sluttTid, f.rom, f.kategori, b.navn AS bedrift
      FROM elever_foredrag ef
      JOIN foredrag f ON ef.foredrag_id = f.id
      LEFT JOIN bedrifter b ON f.holderBedriftId = b.id
@@ -122,6 +122,20 @@ export default async function ElevMineForedragPage() {
                 <p className="text-sm" style={{ color: "var(--muted)" }}>
                   🕒 {f.startTid} — {f.sluttTid}
                 </p>
+
+                <form
+                  action="/api/foredrag/unregister"
+                  method="POST"
+                  className="mt-4"
+                >
+                  <input type="hidden" name="foredrag_id" value={f.id} />
+                  <button
+                    type="submit"
+                    className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-all"
+                  >
+                    Meld av
+                  </button>
+                </form>
               </div>
             ))}
           </div>

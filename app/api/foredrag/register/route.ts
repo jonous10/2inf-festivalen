@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   try {
     const formData = await req.formData();
     const foredrag_id = formData.get("foredrag_id");
-    const elev_id = 1; // TODO: hent fra session eller auth/me senere
+    const elev_id = 1; // TODO: hent fra session
 
     const conn = await getConnection();
 
@@ -17,27 +17,22 @@ export async function POST(req: Request) {
     const antall = (countRows as any)[0].antall;
     if (antall >= 3) {
       await conn.end();
-      return NextResponse.json(
-        { error: "Du kan kun melde deg på tre foredrag." },
-        { status: 400 },
-      );
+      return NextResponse.redirect("/festival/foredrag?error=max3");
     }
 
-    // Sjekk overlapp i tid
+    // Sjekk overlapp
     const [overlapRows] = await conn.execute(
       `SELECT f.id FROM foredrag f
        JOIN elever_foredrag ef ON ef.foredrag_id = f.id
        WHERE ef.elev_id = ? AND (
-         (f.startTid <= (SELECT sluttTid FROM foredrag WHERE id = ?) AND f.sluttTid >= (SELECT startTid FROM foredrag WHERE id = ?))
+         (f.startTid <= (SELECT sluttTid FROM foredrag WHERE id = ?) 
+          AND f.sluttTid >= (SELECT startTid FROM foredrag WHERE id = ?))
        )`,
       [elev_id, foredrag_id, foredrag_id],
     );
     if ((overlapRows as any).length > 0) {
       await conn.end();
-      return NextResponse.json(
-        { error: "Du er allerede påmeldt et foredrag som overlapper i tid." },
-        { status: 400 },
-      );
+      return NextResponse.redirect("/festival/foredrag?error=overlap");
     }
 
     // Sjekk kapasitet
@@ -52,25 +47,19 @@ export async function POST(req: Request) {
     const { maksPlasser, antallPaameldte } = (capRows as any)[0];
     if (antallPaameldte >= maksPlasser) {
       await conn.end();
-      return NextResponse.json(
-        { error: "Foredraget er fullt." },
-        { status: 400 },
-      );
+      return NextResponse.redirect("/festival/foredrag?error=fullt");
     }
 
-    // Registrer påmelding
+    // Registrer
     await conn.execute(
       "INSERT INTO elever_foredrag (elev_id, foredrag_id) VALUES (?, ?)",
       [elev_id, foredrag_id],
     );
     await conn.end();
 
-    return NextResponse.redirect("/festival/elever");
+    return NextResponse.redirect("/festival/elever?success=1");
   } catch (error) {
     console.error("Feil ved påmelding:", error);
-    return NextResponse.json(
-      { error: "Noe gikk galt under påmelding." },
-      { status: 500 },
-    );
+    return NextResponse.redirect("/festival/foredrag?error=server");
   }
 }
