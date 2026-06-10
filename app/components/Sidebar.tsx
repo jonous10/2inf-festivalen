@@ -60,10 +60,7 @@ export default function Sidebar() {
     ${collapsed ? "w-20" : "w-64"}
     fixed md:sticky md:top-0 md:h-screen
     left-0 z-40
-    ${mobileMenuOpen
-            ? "translate-x-0"
-            : "-translate-x-full md:translate-x-0"
-          }`}
+    ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
         style={{
           background: "var(--card-bg)",
           borderColor: "var(--border)",

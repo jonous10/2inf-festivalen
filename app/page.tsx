@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getConnection } from "@/lib/db";
+import FestivalMap from "./components/FestivalMap";
 
 interface Festival {
   id: number;
@@ -407,6 +408,9 @@ export default async function Home() {
               </p>
             </div>
           )}
+        </div>
+        <div className="p-8">
+          <FestivalMap />
         </div>
 
         {/* Funksjoner */}
